@@ -14,7 +14,7 @@ var outputFolder = (Console.ReadLine()?.Replace(@"\", @"").Trim());
 Console.WriteLine(outputFolder);
 
 //from official documentation - https://github.com/naudio/NAudio/blob/master/README.md - https://markheath.net/post/how-to-convert-aiff-files-to-wav-using 
-static void ConvertAiffToWav(string aiffFile, string wavFile)
+static void ConvertAiffToWav(string aiffFile, string? wavFile)
 {
     using (AiffFileReader reader = new AiffFileReader(aiffFile))
     {
@@ -35,7 +35,7 @@ static void ConvertAiffToWav(string aiffFile, string wavFile)
 //Get all the files in the sample folder
 if (sampleFolder != null)
 {
-    string newFilePath = null;
+    string? newFilePath = null;
     string[] files = Directory.GetFiles(sampleFolder);
 
     //Sort the files by date created
@@ -48,12 +48,9 @@ if (sampleFolder != null)
         {
             newFilePath = Path.Combine(outputFolder, $"{folderName} {i}.wav");
         }
-        
-        //converts file to wav
-        ConvertAiffToWav(files[i], $"{folderName} {i}.wav");
 
-        /*//Copy the file to the new location
-        File.Copy(files[i], newFilePath);*/
+        //converts file to wav
+        ConvertAiffToWav(files[i], newFilePath);
         Console.WriteLine($"succesfully created {newFilePath}");
     }
 }
